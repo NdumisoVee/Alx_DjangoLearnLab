@@ -20,3 +20,10 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+from django.urls import include, path
+
+urlpatterns = [
+    # other paths
+    path('relationship_app/', include('relationship_app.urls')),
+]

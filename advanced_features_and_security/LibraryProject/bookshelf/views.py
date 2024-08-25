@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
-from django import forms
+from .forms import ExampleForm
 
 
 @permission_required('your_app_name.can_edit', raise_exception=True)
@@ -31,3 +31,10 @@ def delete_book(request, book_id):
     return render(request, 'confirm_delete.html', {'book': book})
 
 
+def search_books(request):
+    form = ExampleForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        books = Book.objects.filter(title__icontains=query)
+        return render(request, 'book_list.html', {'books': books, 'form': form})
+    return render(request, 'book_list.html', {'form': form})

@@ -1,0 +1,15 @@
+<!-- relationship_app/templates/relationship_app/book_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Book Form{% endblock %}</title>
+</head>
+<body>
+    <h2>{% block header %}Book Form{% endblock %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

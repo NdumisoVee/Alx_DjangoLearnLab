@@ -107,7 +107,3 @@ def delete_book(request, pk):
         book.delete()
         return redirect('book-list')
     return render(request, 'relationship_app/book_confirm_delete.html', {'book': book})
-
-
-def register():
-    return None

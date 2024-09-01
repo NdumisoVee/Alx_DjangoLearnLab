@@ -10,6 +10,7 @@ router.register(r'books', BookViewSet)
 
 urlpatterns = [
     path('books/', BookList.as_view(), name='book-list'),
+    path('api/', include('api.urls')),
     path('', include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

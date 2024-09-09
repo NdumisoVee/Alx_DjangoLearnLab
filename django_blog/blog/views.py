@@ -5,7 +5,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
@@ -101,6 +101,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.author
 
 # View to handle creating a comment
+class CommentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'post_form.html'
+
 @login_required
 def add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)

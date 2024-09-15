@@ -9,10 +9,11 @@ from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post, Comment, Tag
+from .models import Post, Comment
 from .forms import PostForm
 from django.views.generic.edit import UpdateView, DeleteView
 from .forms import CommentForm
+from taggit.models import Tag
 
 
 # User Registration View
@@ -171,7 +172,8 @@ def search_posts(request):
 
     return render(request, 'blog/search_results.html', {'results': results, 'query': query})
 
-def posts_by_tag(request, tag_name):
-    tag = Tag.objects.get(name=tag_name)
+
+def posts_by_tag(request, slug):
+    tag = Tag.objects.get(slug=slug)
     posts = Post.objects.filter(tags=tag)
-    return render(request, 'blog/posts_by_tag.html', {'tag': tag, 'posts': posts})
+    return render(request, 'blog/posts_by_tag.html', {'posts': posts, 'tag': tag})

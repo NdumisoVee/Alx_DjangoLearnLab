@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, generics
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -37,7 +37,7 @@ class LikePostView(views.APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if created:

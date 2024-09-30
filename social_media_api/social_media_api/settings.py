@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^an@icken@v#032n2b9ayp+we@)2f9bgccl(e)(7ti1q_%t2@q'
+SECRET_KEY = 'django-insecure-jxup-jw4z=%&(p(#wk+#eami@)+7vdi#_akm!l_*t4_@gy@%eb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'accounts',
-    'rest_framewrok.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +47,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'accounts',
 ]
 
 ROOT_URLCONF = 'social_media_api.urls'
@@ -86,8 +86,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {

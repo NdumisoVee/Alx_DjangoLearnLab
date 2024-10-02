@@ -11,6 +11,7 @@ from .models import Post, Like
 from notifications.models import Notification
 from django.contrib.contenttypes.models import ContentType
 
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
@@ -64,3 +65,14 @@ class UnlikePostView(views.APIView):
             like.delete()
             return Response({'message': 'Post unliked.'}, status=status.HTTP_204_NO_CONTENT)
         return Response({'message': 'You have not liked this post.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FeedViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def list(self, request):
+        user = request.user
+        following_users = user.following.all()
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
